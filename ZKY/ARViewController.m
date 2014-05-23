@@ -49,40 +49,29 @@
     poiData = [tmpDataArray copy];
     NSUInteger numPois = [poiData count];
     
-    NSMutableArray *poiNames = [[NSMutableArray alloc] init];
-    NSMutableArray *Img = [[NSMutableArray alloc] init];
-    float poiCoords[numPois][2];
-    NSInteger belongTo[numPois];
-    
-    for (int i = 0; i < numPois; i++) {
-        [poiNames addObject:[[poiData objectAtIndex:i] objectForKey:@"name"]];
-        [Img addObject:[[poiData objectAtIndex:i] objectForKey:@"image"]];
-        poiCoords[i][0] = [[[poiData objectAtIndex:i] objectForKey:@"x"] floatValue];
-        poiCoords[i][1] = [[[poiData objectAtIndex:i] objectForKey:@"y"] floatValue];
-        belongTo[i] = [[[poiData objectAtIndex:i] objectForKey:@"belongto"] integerValue];
-    }
-    
-    //int numPois = sizeof(poiCoords) / sizeof(CGPoint);
-    
-	NSMutableArray *POIs = [NSMutableArray arrayWithCapacity:numPois+2];
+	NSMutableArray *POIs = [NSMutableArray arrayWithCapacity:numPois];
 	for (int i = 0; i < numPois; i++) {
-        POIview *poiview = [[POIview alloc] initWithFrame:CGRectMake(0, 0, 140, 50)];
-        poiview.POItitle.text = poiNames[i];
-        [poiview.POIback setImage:[UIImage imageNamed:Img[i]]];
         
-//		UILabel *label = [[UILabel alloc] init];
-//		label.adjustsFontSizeToFitWidth = NO;
-//		label.opaque = NO;
-//		label.backgroundColor = [UIColor colorWithRed:0.1f green:0.1f blue:0.1f alpha:0.5f];
-//		label.center = CGPointMake(200.0f, 200.0f);
-//		label.textAlignment = UITextAlignmentCenter;
-//		label.textColor = [UIColor whiteColor];
-//		label.text = [NSString stringWithCString:poiNames[i] encoding:NSASCIIStringEncoding];
-//		CGSize size = [label.text sizeWithFont:label.font];
-//		label.bounds = CGRectMake(0.0f, 0.0f, size.width, size.height);
+        UIImage *ImageName = [UIImage imageNamed:[[poiData objectAtIndex:i] objectForKey:@"image"]];
+        //直接以图片大小为基础，调整scale比列传入POIview中
+        float scale = 1.5;
+        CGRect imageRect = CGRectMake(0, 0, ImageName.size.width/scale, ImageName.size.height/scale);
         
-        CGPoint poiPoint = {poiCoords[i][0],poiCoords[i][1]};
-		POI *poi = [POI POIWithView:poiview at:poiPoint belongto:belongTo[i]];
+        if (ImageName.size.height>200) {
+            imageRect=CGRectMake(0, 160, ImageName.size.width/scale, ImageName.size.height/scale);
+        }
+        
+        POIview *poiview = [[POIview alloc] initWithFrame:imageRect];
+        poiview.POItitle.text = [[poiData objectAtIndex:i] objectForKey:@"name"];
+        [poiview.POIback setImage:ImageName];
+
+        CGPoint poiPoint = {[[[poiData objectAtIndex:i] objectForKey:@"x"] floatValue]+100,
+                            [[[poiData objectAtIndex:i] objectForKey:@"y"] floatValue]+80};
+        
+        
+        
+		POI *poi = [POI POIWithView:poiview at:poiPoint belongtoArray:[[poiData objectAtIndex:i] objectForKey:@"belongto"]];
+        
 		[POIs insertObject:poi atIndex:i];
 	}
     
@@ -120,15 +109,12 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    
 }
-
 
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

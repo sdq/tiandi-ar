@@ -13,6 +13,9 @@
 
 #define DEGREES_TO_RADIANS (M_PI/180.0)
 
+static NSString * const kUUID = @"d26d197e-4a1c-44ae-b504-dd7768870564";
+
+
 typedef float mat4f_t[16];	// 4x4 matrix in column major order
 typedef float vec4f_t[4];	// 4D vector
 
@@ -55,7 +58,6 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
     CLLocationManager *locationManager;
     int locationIndex;
     CGPoint location;
-//    double orientation;
     float offset;
     CLBeaconRegion *beaconRegion;
     NSArray *coodinateData;
@@ -65,7 +67,6 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
 	mat4f_t cameraTransform;
 	vec4f_t *POIsCoordinates;
     
-    MapView *mapView;
     UIImage *mapImage;
     UIImage *positionImage;
     CGImageRef cgMapImage;
@@ -76,6 +77,7 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
     double pitch,roll;
     
     InfoView *infoView;
+    MapView *mapView;
 }
 @end
 
@@ -98,6 +100,13 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
     [self addSubview:mapView];
     [self bringSubviewToFront:mapView];
     
+    //get map context
+    UIGraphicsBeginImageContextWithOptions(mapView.Map.image.size, YES, 0);
+    context = UIGraphicsGetCurrentContext();
+    CGContextTranslateCTM(context, 0.0, mapView.Map.image.size.height);
+    CGContextScaleCTM(context, 1.0, -1.0);
+    
+    
     /**
      * add info surface
      */
@@ -106,15 +115,8 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
     [infoView setAlpha:0.5];
     [self addSubview:infoView];
     [self bringSubviewToFront:infoView];
-    infoView.InfoText.text = @"您当前所在位置为Stage.";
+    //infoView.InfoText.text = @"您当前所在位置为Stage.";
     
-    /**
-     * get context
-     */
-    UIGraphicsBeginImageContextWithOptions(mapView.Map.image.size, YES, 0);
-    context = UIGraphicsGetCurrentContext();
-    CGContextTranslateCTM(context, 0.0, mapView.Map.image.size.height);
-    CGContextScaleCTM(context, 1.0, -1.0);
     
     // Initialize projection matrix
     createProjectionMatrix(projectionTransform, 60.0f*DEGREES_TO_RADIANS, self.bounds.size.width*1.0f / self.bounds.size.height, 0.25f, 1000.0f);
@@ -222,21 +224,15 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
     locationManager.delegate = self;
     [locationManager startRangingBeaconsInRegion:beaconRegion];
     
-    //compass
-//    if ([CLLocationManager headingAvailable]) {
-//        locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-//        locationManager.headingFilter = kCLHeadingFilterNone;
-//        [locationManager startUpdatingHeading];
-//    }
 }
 
 - (void)initRegion
 {
     if (beaconRegion)
         return;
-    NSUUID *proximityUUID = [[NSUUID alloc] initWithUUIDString:@"d26d197e-4a1c-44ae-b504-dd7768870564"];
+    NSUUID *proximityUUID = [[NSUUID alloc] initWithUUIDString:kUUID];
     //    self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID identifier:@"TongjiIdentifier"];
-    beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID major:1403 identifier:@"TongjiIdentifier"];
+    beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID identifier:@"TongjiIdentifier"];
 }
 
 -(void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region {
@@ -250,14 +246,29 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
             location.y = [[[coodinateData objectAtIndex:locationIndex] objectForKey:@"y"] floatValue];
             [self drawThePosition:location onMap:@"map.jpg"];
             [self updatePOIsCoordinates];
-
+            
+            NSString *locationInfoString;
+            switch (locationIndex) {
+                case 1:
+                    locationInfoString = @"您所在的位置：大厅";
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+            
+            infoView.InfoText.text = locationInfoString;
+            
             break;
         }
     }
 }
 
 #pragma mark - draw the map and position
+
 - (void)drawThePosition:(CGPoint)position onMap:(NSString *)map{
+    
     //map
     mapImage = [UIImage imageNamed:map];
     MapRect = CGRectMake(0, 0, mapView.Map.image.size.width, mapView.Map.image.size.height);
@@ -274,16 +285,8 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
     
     mapImage = UIGraphicsGetImageFromCurrentImageContext();
     mapView.Map.image = mapImage;
+    
 }
-
-
-//-(void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
-//{
-//    orientation = newHeading.magneticHeading;
-//    NSLog(@"%f",orientation);
-//    
-////    CGAffineTransform transform = CGAffineTransformMakeRotation(-1 * M_PI*newHeading.magneticHeading/180.0);
-//}
 
 -(void)updatePOIsCoordinates
 {
@@ -310,14 +313,14 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
 	// Compute the coordinates
 	for (POI *poi in [POIs objectEnumerator]) {
         double e, n;
-            
+        
         xyToNEU(location.x, location.y, poi->location.x, poi->location.y, offset, &e, &n );
-            
+        
         POIsCoordinates[i][0] = (float)n;
         POIsCoordinates[i][1]= -(float)e;
         POIsCoordinates[i][2] = 0.0f;
         POIsCoordinates[i][3] = 1.0f;
-            
+        
         // Add struct containing distance and index to orderedDistances
         DistanceAndIndex distanceAndIndex;
         distanceAndIndex.distance = sqrtf(n*n + e*e);
@@ -343,11 +346,18 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
 	for (NSData *d in [orderedDistances reverseObjectEnumerator]) {
 		const DistanceAndIndex *distanceAndIndex = (const DistanceAndIndex *)d.bytes;
 		POI *poi = (POI *)[POIs objectAtIndex:distanceAndIndex->index];
-        if (poi->belongToLocation == locationIndex) {
+        
+        //遍历所有POI.plist中数据，如果belongto中包含当前Index则显示出来
+        //需要判断当前index是否在belongTolocationArray之中
+        NSArray *belongToArrayToCheck = poi->belogToLocationArray;
+        
+        NSNumber *locationIndexNumber = [[NSNumber alloc]initWithInt:locationIndex];
+        
+        
+        if ([belongToArrayToCheck containsObject:locationIndexNumber]) {
             [self addSubview:poi.view];//add specific subview according to the location
         }
-	}	
-
+	}
 }
 
 - (void)stopLocation
@@ -436,21 +446,17 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
 	
 	int i = 0;
 	for (POI *poi in [POIs objectEnumerator]) {
-//        if (poi->belongToLocation != locationIndex) {
-//            poi.view.hidden = YES;//display according to the location
-//        } else {
-            vec4f_t v;
-            multiplyMatrixAndVector(v, projectionCameraTransform, POIsCoordinates[i]);
-            
-            float x = (v[0] / v[3] + 1.0f) * 0.5f;
-            float y = (v[1] / v[3] + 1.0f) * 0.5f;
-            if (v[2] < 0.0f) {
-                poi.view.center = CGPointMake(x*self.bounds.size.width, self.bounds.size.height-y*self.bounds.size.height);
-                poi.view.hidden = NO;
-            } else {
-                poi.view.hidden = YES;
-            }
-//        }
+        vec4f_t v;
+        multiplyMatrixAndVector(v, projectionCameraTransform, POIsCoordinates[i]);
+        
+        float x = (v[0] / v[3] + 1.0f) * 0.5f;
+        float y = (v[1] / v[3] + 1.0f) * 0.5f;
+        if (v[2] < 0.0f) {
+            poi.view.center = CGPointMake(x*self.bounds.size.width, self.bounds.size.height-y*self.bounds.size.height);
+            poi.view.hidden = NO;
+        } else {
+            poi.view.hidden = YES;
+        }
 		i++;
 	}
     

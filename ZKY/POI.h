@@ -11,6 +11,7 @@
 @interface POI : NSObject{
     @public CGPoint location;
     @public int belongToLocation;//the ar info will display only in the specific location
+    @public NSArray *belogToLocationArray;
 }
 
 @property (nonatomic, strong) UIView *view;
@@ -18,6 +19,7 @@
 
 + (POI *)POIWithView:(UIView *)view at:(CGPoint)location;
 + (POI *)POIWithView:(UIView *)view at:(CGPoint)location belongto:(int)belongto;
++ (POI *)POIWithView:(UIView *)view at:(CGPoint)location belongtoArray:(NSArray *)belongtoArray;
 
 
 @end

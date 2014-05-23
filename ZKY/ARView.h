@@ -14,6 +14,8 @@
 #import "MapView.h"
 #import "InfoView.h"
 
+
+
 @interface ARView : UIView < CLLocationManagerDelegate >
 
 - (void)initialize;

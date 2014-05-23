@@ -38,4 +38,13 @@
     return poi;
 }
 
++ (POI *)POIWithView:(UIView *)view at:(CGPoint)location belongtoArray:(NSArray *)belongtoArray{
+    POI *poi = [[POI alloc] init];
+    poi.view =view;
+    poi->location=location;
+    poi->belogToLocationArray = belongtoArray;
+    return poi;
+}
+
+
 @end
