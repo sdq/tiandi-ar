@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "650960FB188A184C0076EB83"
-               BuildableName = "ZKY.app"
+               BuildableName = "&#20013;&#33452;&#20013;&#24515;.app"
                BlueprintName = "ZKY"
                ReferencedContainer = "container:ZKY.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "650960FB188A184C0076EB83"
-            BuildableName = "ZKY.app"
+            BuildableName = "&#20013;&#33452;&#20013;&#24515;.app"
             BlueprintName = "ZKY"
             ReferencedContainer = "container:ZKY.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "650960FB188A184C0076EB83"
-            BuildableName = "ZKY.app"
+            BuildableName = "&#20013;&#33452;&#20013;&#24515;.app"
             BlueprintName = "ZKY"
             ReferencedContainer = "container:ZKY.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "650960FB188A184C0076EB83"
-            BuildableName = "ZKY.app"
+            BuildableName = "&#20013;&#33452;&#20013;&#24515;.app"
             BlueprintName = "ZKY"
             ReferencedContainer = "container:ZKY.xcodeproj">
          </BuildableReference>

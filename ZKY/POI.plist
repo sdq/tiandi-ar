@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>0</key>
+	<dict>
+		<key>name</key>
+		<string>厕所</string>
+		<key>image</key>
+		<string>toilet.png</string>
+		<key>info</key>
+		<string>this is the point</string>
+		<key>x</key>
+		<integer>706</integer>
+		<key>y</key>
+		<integer>102</integer>
+		<key>belongto</key>
+		<integer>0</integer>
+	</dict>
+	<key>1</key>
+	<dict>
+		<key>name</key>
+		<string>厕所</string>
+		<key>image</key>
+		<string>toilet.png</string>
+		<key>info</key>
+		<string>this is the point</string>
+		<key>x</key>
+		<integer>706</integer>
+		<key>y</key>
+		<integer>102</integer>
+		<key>belongto</key>
+		<integer>1</integer>
+	</dict>
+	<key>2</key>
+	<dict>
+		<key>name</key>
+		<string>厕所</string>
+		<key>image</key>
+		<string>toilet.png</string>
+		<key>info</key>
+		<string>this is the point</string>
+		<key>x</key>
+		<integer>706</integer>
+		<key>y</key>
+		<integer>102</integer>
+		<key>belongto</key>
+		<integer>2</integer>
+	</dict>
+	<key>3</key>
+	<dict>
+		<key>name</key>
+		<string>办公区</string>
+		<key>image</key>
+		<string>office.png</string>
+		<key>info</key>
+		<string>another point</string>
+		<key>x</key>
+		<integer>622</integer>
+		<key>y</key>
+		<integer>485</integer>
+		<key>belongto</key>
+		<integer>0</integer>
+	</dict>
+	<key>4</key>
+	<dict>
+		<key>name</key>
+		<string>电梯</string>
+		<key>image</key>
+		<string>lift.png</string>
+		<key>info</key>
+		<string>third point</string>
+		<key>x</key>
+		<integer>395</integer>
+		<key>y</key>
+		<integer>37</integer>
+		<key>belongto</key>
+		<integer>0</integer>
+	</dict>
+	<key>5</key>
+	<dict>
+		<key>name</key>
+		<string>电梯</string>
+		<key>image</key>
+		<string>lift.png</string>
+		<key>info</key>
+		<string>third point</string>
+		<key>x</key>
+		<integer>395</integer>
+		<key>y</key>
+		<integer>37</integer>
+		<key>belongto</key>
+		<integer>1</integer>
+	</dict>
+	<key>6</key>
+	<dict>
+		<key>name</key>
+		<string>电梯</string>
+		<key>image</key>
+		<string>lift.png</string>
+		<key>info</key>
+		<string>third point</string>
+		<key>x</key>
+		<integer>395</integer>
+		<key>y</key>
+		<integer>37</integer>
+		<key>belongto</key>
+		<integer>2</integer>
+	</dict>
+	<key>7</key>
+	<dict>
+		<key>name</key>
+		<string>公共区域 Public Place</string>
+		<key>image</key>
+		<string>office.png</string>
+		<key>info</key>
+		<string>公共区域</string>
+		<key>x</key>
+		<integer>466</integer>
+		<key>y</key>
+		<integer>755</integer>
+		<key>belongto</key>
+		<integer>4</integer>
+	</dict>
+	<key>8</key>
+	<dict>
+		<key>name</key>
+		<string>后台 Back Stage</string>
+		<key>image</key>
+		<string>meeting.png</string>
+		<key>info</key>
+		<string>公共区域</string>
+		<key>x</key>
+		<integer>170</integer>
+		<key>y</key>
+		<integer>1015</integer>
+		<key>belongto</key>
+		<integer>4</integer>
+	</dict>
+	<key>9</key>
+	<dict>
+		<key>name</key>
+		<string>餐厅 Canteen</string>
+		<key>image</key>
+		<string>rest.png</string>
+		<key>info</key>
+		<string>公共区域</string>
+		<key>x</key>
+		<integer>170</integer>
+		<key>y</key>
+		<integer>419</integer>
+		<key>belongto</key>
+		<integer>4</integer>
+	</dict>
+</dict>
+</plist>
