@@ -46,7 +46,7 @@
     return poi;
 }
 
-//为了测试pull request，可以通知你，我做出了修改，由你来决定是否采纳
+//That's all right!
 
 
 @end
