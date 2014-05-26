@@ -173,7 +173,7 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
 
 - (void)startCameraPreview
 {
-	AVCaptureDevice* camera = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+	AVCaptureDevice* camera = [self cameraWithPosition:AVCaptureDevicePositionBack];
 	if (camera == nil) {
 		return;
 	}
@@ -192,6 +192,15 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 		[captureSession startRunning];
 	});
+}
+
+- (AVCaptureDevice *)cameraWithPosition:(AVCaptureDevicePosition)position
+{
+    NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+    for ( AVCaptureDevice *device in devices )
+        if ( device.position == position )
+            return device;
+    return nil;
 }
 
 - (void)stopCameraPreview
@@ -249,7 +258,7 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
             
             NSString *locationInfoString;
             switch (locationIndex) {
-                case 1:
+                case 4:
                     locationInfoString = @"您所在的位置：大厅";
                     break;
                     

@@ -5,18 +5,18 @@
 	<key>0</key>
 	<dict>
 		<key>name</key>
-		<string>停车场</string>
+		<string>厕所</string>
 		<key>image</key>
-		<string>park.png</string>
+		<string>toilet.png</string>
 		<key>info</key>
 		<string>another point</string>
 		<key>x</key>
-		<integer>250</integer>
+		<integer>706</integer>
 		<key>y</key>
-		<integer>750</integer>
+		<integer>102</integer>
 		<key>belongto</key>
 		<array>
-			<integer>0</integer>
+			<integer>4</integer>
 			<integer>2</integer>
 			<integer>3</integer>
 		</array>

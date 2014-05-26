@@ -78,13 +78,13 @@
     /**
      * MOV
      **/
-    CGRect movFrame = CGRectMake(0,0,320,280);
-    CGPoint movPoint = {40,750};
-    MOVview *movView = [[MOVview alloc] initWithFrame:movFrame];
-    [movView setBackgroundColor:[UIColor clearColor]];
-    
-    POI *mov1 = [POI POIWithView:movView at:movPoint belongto:4];
-    [POIs insertObject:mov1 atIndex:numPois];
+//    CGRect movFrame = CGRectMake(0,0,320,280);
+//    CGPoint movPoint = {40,750};
+//    MOVview *movView = [[MOVview alloc] initWithFrame:movFrame];
+//    [movView setBackgroundColor:[UIColor clearColor]];
+//    
+//    POI *mov1 = [POI POIWithView:movView at:movPoint belongto:4];
+//    [POIs insertObject:mov1 atIndex:numPois];
     
     /**
      * GIF
@@ -94,8 +94,9 @@
     GIFview *gifview = [[GIFview alloc] initWithFrame:frame withGifName:@"flower"];
     CGPoint gifPoint = {40,841};
     
-    POI *gif1 = [POI POIWithView:gifview at:gifPoint belongto:4];
-    [POIs insertObject:gif1 atIndex:numPois+1];
+    NSArray *gifBelongtoArray = [NSArray arrayWithObjects: [NSNumber numberWithInt:4], nil];
+    POI *gif1 = [POI POIWithView:gifview at:gifPoint belongtoArray:gifBelongtoArray];
+    [POIs insertObject:gif1 atIndex:numPois];
     
     //set POIs
 	[arview setPOIs:POIs];
@@ -104,7 +105,7 @@
     [arview initialize];
     [arview start];
     
-    [movView.movie play];
+    //[movView.movie play];
 }
 
 - (void)viewWillAppear:(BOOL)animated
