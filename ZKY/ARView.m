@@ -145,10 +145,18 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
 
 - (void)start
 {
-	[self startCameraPreview];
+	[self startCameraPreview:AVCaptureDevicePositionBack];
     [self startLocation];
     [self startDeviceMotion];
 	[self startDisplayLink];
+}
+
+- (void)startFrontCameraMode
+{
+    [self stopCameraPreview];
+    [self startCameraPreview:AVCaptureDevicePositionFront];
+    [self stopLocation];
+    [self stopDeviceMotion];
 }
 
 - (void)stop
@@ -157,6 +165,14 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
     [self stopLocation];
     [self stopDeviceMotion];
 	[self stopDisplayLink];
+}
+
+- (void)stopFrontCameraMode
+{
+    [self stopCameraPreview];
+    [self startCameraPreview:AVCaptureDevicePositionBack];
+	[self startLocation];
+    [self startDeviceMotion];
 }
 
 - (void)setPOIs:(NSArray *)pois
@@ -171,9 +187,9 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
 
 #pragma mark - camera
 
-- (void)startCameraPreview
+- (void)startCameraPreview:(NSInteger)AVCaptureDevicePosition
 {
-	AVCaptureDevice* camera = [self cameraWithPosition:AVCaptureDevicePositionBack];
+	AVCaptureDevice* camera = [self cameraWithPosition:AVCaptureDevicePosition];
 	if (camera == nil) {
 		return;
 	}

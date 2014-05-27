@@ -21,6 +21,8 @@
 - (void)initialize;
 - (void)start;
 - (void)stop;
+- (void)startFrontCameraMode;
+- (void)stopFrontCameraMode;
 
 - (void)setPOIs:(NSArray *)pois;
 

@@ -8,6 +8,12 @@
 
 #import "ARViewController.h"
 
+typedef NS_ENUM(NSInteger, myCameraMode)
+{
+    backCameraMode,
+    frontCameraMode
+};
+
 @interface ARViewController ()
 
 @end
@@ -29,6 +35,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    cameraMode = backCameraMode;
     
     //voice
 //    AVSpeechSynthesizer *av = [[AVSpeechSynthesizer alloc]init];
@@ -90,8 +97,8 @@
      * GIF
      **/
     CGRect frame = CGRectMake(0,0,140,140);
-    frame.size = [UIImage imageNamed:@"flower.gif"].size;
-    GIFview *gifview = [[GIFview alloc] initWithFrame:frame withGifName:@"flower"];
+    frame.size = [UIImage imageNamed:@"test.gif"].size;
+    GIFview *gifview = [[GIFview alloc] initWithFrame:frame withGifName:@"test"];
     CGPoint gifPoint = {40,841};
     
     NSArray *gifBelongtoArray = [NSArray arrayWithObjects: [NSNumber numberWithInt:4], nil];
@@ -118,4 +125,22 @@
     [super didReceiveMemoryWarning];
 }
 
+- (IBAction)SwitchBackAndFrontCamera:(UIButton *)sender {
+    switch (cameraMode) {
+        case backCameraMode:
+            [arview startFrontCameraMode];
+            cameraMode = frontCameraMode;
+            break;
+            
+        case frontCameraMode:
+            [arview stopFrontCameraMode];
+            cameraMode = backCameraMode;
+            break;
+            
+        default:
+            [arview startFrontCameraMode];
+            cameraMode = frontCameraMode;
+            break;
+    }
+}
 @end

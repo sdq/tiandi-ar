@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3240106519332CFD006F64C1 /* test.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3240106419332CFD006F64C1 /* test.gif */; };
 		32ABC81D191B221E00F80879 /* flower.gif in Resources */ = {isa = PBXBuildFile; fileRef = 32ABC81C191B221E00F80879 /* flower.gif */; };
 		32ABC81F191B2D2500F80879 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32ABC81E191B2D2500F80879 /* Main.storyboard */; };
 		32BA8D221915DDD3007881E0 /* MOVview.m in Sources */ = {isa = PBXBuildFile; fileRef = 32BA8D211915DDD3007881E0 /* MOVview.m */; };
@@ -63,6 +64,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3240106419332CFD006F64C1 /* test.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = test.gif; sourceTree = "<group>"; };
 		32ABC81C191B221E00F80879 /* flower.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = flower.gif; sourceTree = "<group>"; };
 		32ABC81E191B2D2500F80879 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		32BA8D201915DDD3007881E0 /* MOVview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOVview.h; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 		323CE0151929C9EB00D7EAF7 /* gif */ = {
 			isa = PBXGroup;
 			children = (
+				3240106419332CFD006F64C1 /* test.gif */,
 				32ABC81C191B221E00F80879 /* flower.gif */,
 			);
 			name = gif;
@@ -401,6 +404,7 @@
 				6509610A188A184C0076EB83 /* InfoPlist.strings in Resources */,
 				65FC7A721893416E003B718C /* toilet.png in Resources */,
 				65FC7A661893411A003B718C /* manage@2x.png in Resources */,
+				3240106519332CFD006F64C1 /* test.gif in Resources */,
 				6530976718C4191E0080090D /* map.jpg in Resources */,
 				6529457618C9B5B700B8BB35 /* about.html in Resources */,
 				6509614D188A289F0076EB83 /* coordinates.plist in Resources */,

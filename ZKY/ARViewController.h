@@ -17,6 +17,8 @@
 @interface ARViewController : UIViewController
 {
     NSArray *poiData;
+    NSInteger cameraMode;
 }
 @property (weak, nonatomic) IBOutlet ARView *arview;
+- (IBAction)SwitchBackAndFrontCamera:(UIButton *)sender;
 @end
