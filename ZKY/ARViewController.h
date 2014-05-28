@@ -20,5 +20,9 @@
     NSInteger cameraMode;
 }
 @property (weak, nonatomic) IBOutlet ARView *arview;
+@property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
+
 - (IBAction)SwitchBackAndFrontCamera:(UIButton *)sender;
+- (IBAction)takePhoto:(UIButton *)sender;
+
 @end

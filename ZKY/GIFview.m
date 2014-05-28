@@ -17,18 +17,7 @@
     if (self) {
         // Initialization code
         [self setBackgroundColor:[UIColor clearColor]];
-        /**
-        CGRect frame = CGRectMake(0,0,140,140);
-        frame.size = [UIImage imageNamed:@"flower.gif"].size;
-        
-        // 读取gif图片数据
-        NSData *gif = [NSData dataWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"flower" ofType:@"gif"]];
-        // view生成
-        //UIWebView *webView = [[UIWebView alloc] initWithFrame:frame];
-        self.userInteractionEnabled = NO;//用户不可交互
-        [self loadData:gif MIMEType:@"image/gif" textEncodingName:nil baseURL:nil];
-        //[self addSubview:webView];
-         **/
+
         NSURL *Url =[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:gifName ofType:@"gif"]];
         UIImageView * AnimationGif = 	[AnimatedGif getAnimationForGifAtUrl: Url];
         [self addSubview:AnimationGif];

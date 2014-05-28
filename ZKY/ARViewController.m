@@ -7,6 +7,7 @@
 //
 
 #import "ARViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 typedef NS_ENUM(NSInteger, myCameraMode)
 {
@@ -21,6 +22,7 @@ typedef NS_ENUM(NSInteger, myCameraMode)
 @implementation ARViewController
 
 @synthesize arview;
+@synthesize takePhotoButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,13 +37,11 @@ typedef NS_ENUM(NSInteger, myCameraMode)
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    cameraMode = backCameraMode;
     
-    //voice
-//    AVSpeechSynthesizer *av = [[AVSpeechSynthesizer alloc]init];
-//    AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc]initWithString:@"进入增强现实模式"]; //需要转换的文本
-//    utterance.rate = 0.3;
-//    [av speakUtterance:utterance];
+    //preparation
+    cameraMode = backCameraMode;
+    takePhotoButton.hidden = YES;
+    
     
     //load plist of coordinates
     NSBundle *bundle = [NSBundle mainBundle];
@@ -74,8 +74,6 @@ typedef NS_ENUM(NSInteger, myCameraMode)
 
         CGPoint poiPoint = {[[[poiData objectAtIndex:i] objectForKey:@"x"] floatValue]+100,
                             [[[poiData objectAtIndex:i] objectForKey:@"y"] floatValue]+80};
-        
-        
         
 		POI *poi = [POI POIWithView:poiview at:poiPoint belongtoArray:[[poiData objectAtIndex:i] objectForKey:@"belongto"]];
         
@@ -128,19 +126,40 @@ typedef NS_ENUM(NSInteger, myCameraMode)
 - (IBAction)SwitchBackAndFrontCamera:(UIButton *)sender {
     switch (cameraMode) {
         case backCameraMode:
+            takePhotoButton.hidden = NO;
             [arview startFrontCameraMode];
             cameraMode = frontCameraMode;
             break;
             
         case frontCameraMode:
+            takePhotoButton.hidden = YES;
             [arview stopFrontCameraMode];
             cameraMode = backCameraMode;
             break;
             
         default:
+            takePhotoButton.hidden = NO;
             [arview startFrontCameraMode];
             cameraMode = frontCameraMode;
             break;
     }
 }
+
+#pragma mark - take photo
+
+- (IBAction)takePhoto:(UIButton *)sender {
+    UIImageWriteToSavedPhotosAlbum([self captureScreen], nil, nil, nil);
+}
+
+- (UIImage *) captureScreen {
+    UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
+    CGRect rect = [keyWindow bounds];
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [keyWindow.layer renderInContext:context];
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return img;
+}
+
 @end

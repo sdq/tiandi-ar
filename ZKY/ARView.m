@@ -110,13 +110,11 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
     /**
      * add info surface
      */
-    infoView = [[InfoView alloc] initWithFrame:CGRectMake(0, 479, 320, 40)];
+    infoView = [[InfoView alloc] initWithFrame:CGRectMake(0, 528, 320, 40)];
     [infoView setBackgroundColor:[UIColor blackColor]];
     [infoView setAlpha:0.5];
     [self addSubview:infoView];
     [self bringSubviewToFront:infoView];
-    //infoView.InfoText.text = @"您当前所在位置为Stage.";
-    
     
     // Initialize projection matrix
     createProjectionMatrix(projectionTransform, 60.0f*DEGREES_TO_RADIANS, self.bounds.size.width*1.0f / self.bounds.size.height, 0.25f, 1000.0f);
@@ -153,6 +151,11 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
 
 - (void)startFrontCameraMode
 {
+    infoView.hidden = YES;
+    mapView.hidden = YES;
+    for (POI *poi in [POIs objectEnumerator]) {
+		[poi.view removeFromSuperview];
+	}
     [self stopCameraPreview];
     [self startCameraPreview:AVCaptureDevicePositionFront];
     [self stopLocation];
