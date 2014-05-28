@@ -27,6 +27,7 @@
     POI *poi = [[POI alloc] init];
     poi.view = view;
     poi->location = location;
+    poi->shakedOrNot = NO;
     return poi;
 }
 
@@ -35,6 +36,7 @@
     poi.view = view;
     poi->location = location;
     poi->belongToLocation = belongto;
+    poi->shakedOrNot = NO;
     return poi;
 }
 
@@ -43,10 +45,18 @@
     poi.view =view;
     poi->location=location;
     poi->belogToLocationArray = belongtoArray;
+    poi->shakedOrNot = NO;
     return poi;
 }
 
-//That's all right!
++ (POI *)POIWithView:(UIView *)view at:(CGPoint)location belongtoArray:(NSArray *)belongtoArray shakedOrNot:(BOOL)shakedOrNot{
+    POI *poi = [[POI alloc] init];
+    poi.view =view;
+    poi->location=location;
+    poi->belogToLocationArray = belongtoArray;
+    poi->shakedOrNot = shakedOrNot;
+    return poi;
+}
 
 
 @end

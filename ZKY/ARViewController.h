@@ -21,6 +21,7 @@
 }
 @property (weak, nonatomic) IBOutlet ARView *arview;
 @property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
+@property (weak, nonatomic) IBOutlet UIButton *switchCameraBotton;
 
 - (IBAction)SwitchBackAndFrontCamera:(UIButton *)sender;
 - (IBAction)takePhoto:(UIButton *)sender;

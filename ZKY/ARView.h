@@ -26,6 +26,8 @@
 
 - (UIImage *)takeScreenshot;
 
+- (void)setShakeOrNot:(BOOL)yesOrNot;
+
 - (void)setPOIs:(NSArray *)pois;
 
 @end

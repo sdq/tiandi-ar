@@ -22,7 +22,7 @@ typedef NS_ENUM(NSInteger, myCameraMode)
 @implementation ARViewController
 
 @synthesize arview;
-@synthesize takePhotoButton;
+@synthesize takePhotoButton,switchCameraBotton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -103,8 +103,16 @@ typedef NS_ENUM(NSInteger, myCameraMode)
     CGPoint gifPoint = {40,841};
     
     NSArray *gifBelongtoArray = [NSArray arrayWithObjects: [NSNumber numberWithInt:4], nil];
-    POI *gif1 = [POI POIWithView:gifview at:gifPoint belongtoArray:gifBelongtoArray];
+    POI *gif1 = [POI POIWithView:gifview at:gifPoint belongtoArray:gifBelongtoArray shakedOrNot:NO];
     [POIs insertObject:gif1 atIndex:numPois];
+    
+    
+    frame.size = [UIImage imageNamed:@"flower.gif"].size;
+    GIFview *gifview2 = [[GIFview alloc] initWithFrame:frame withGifName:@"flower"];
+    
+    POI *gif2 = [POI POIWithView:gifview2 at:gifPoint belongtoArray:gifBelongtoArray shakedOrNot:YES];
+    [POIs insertObject:gif2 atIndex:numPois+1];
+    
     
     //set POIs
 	[arview setPOIs:POIs];
@@ -164,8 +172,9 @@ typedef NS_ENUM(NSInteger, myCameraMode)
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
 {
     NSLog(@"stop");
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"shake" message:@"why?" delegate:self cancelButtonTitle:@"fuck" otherButtonTitles:@"shit", nil];
-    [alertView show];
+    [arview setShakeOrNot:YES];
+//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"shake" message:@"why?" delegate:self cancelButtonTitle:@"fuck" otherButtonTitles:@"shit", nil];
+//    [alertView show];
 }
 
 - (void)motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event

@@ -57,10 +57,13 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
     
     CLLocationManager *locationManager;
     int locationIndex;
+    int lastLocationIndex;
     CGPoint location;
     float offset;
     CLBeaconRegion *beaconRegion;
     NSArray *coodinateData;
+    
+    BOOL shakeOrNot;
     
 	NSArray *POIs;
 	mat4f_t projectionTransform;
@@ -119,8 +122,12 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
     // Initialize projection matrix
     createProjectionMatrix(projectionTransform, 60.0f*DEGREES_TO_RADIANS, self.bounds.size.width*1.0f / self.bounds.size.height, 0.25f, 1000.0f);
     
-    //set offset
-    offset = 7*M_PI/5;
+    /**
+     * preparation
+     **/
+    lastLocationIndex = -1;
+    shakeOrNot = NO;
+    offset = 7*M_PI/5;//set offset
     
     //for demo
     NSBundle *bundle = [NSBundle mainBundle];
@@ -154,7 +161,7 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
     infoView.hidden = YES;
     mapView.hidden = YES;
     for (POI *poi in [POIs objectEnumerator]) {
-		[poi.view removeFromSuperview];
+		poi.view.hidden = YES;
 	}
     [self stopCameraPreview];
     [self startCameraPreview:AVCaptureDevicePositionFront];
@@ -270,24 +277,28 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
     {
         if (beacon.proximity != CLProximityUnknown){
             locationIndex = [[beacon minor] intValue];
-            location.x = [[[coodinateData objectAtIndex:locationIndex] objectForKey:@"x"] floatValue];
-            location.y = [[[coodinateData objectAtIndex:locationIndex] objectForKey:@"y"] floatValue];
-            [self drawThePosition:location onMap:@"map.jpg"];
-            [self updatePOIsCoordinates];
-            
-            NSString *locationInfoString;
-            switch (locationIndex) {
-                case 4:
-                    locationInfoString = @"您所在的位置：大厅";
-                    break;
-                    
-                default:
-                    break;
+            //refresh the map and POI only when the location changes
+            if (lastLocationIndex!=locationIndex) {
+                shakeOrNot = NO;//reset when location changes
+                
+                location.x = [[[coodinateData objectAtIndex:locationIndex] objectForKey:@"x"] floatValue];
+                location.y = [[[coodinateData objectAtIndex:locationIndex] objectForKey:@"y"] floatValue];
+                [self drawThePosition:location onMap:@"map.jpg"];
+                
+                [self updatePOIsCoordinates];
+                
+                NSString *locationInfoString;
+                switch (locationIndex) {
+                    case 4:
+                        locationInfoString = @"您所在的位置：大厅";
+                        break;
+                        
+                    default:
+                        break;
+                }
+                
+                infoView.InfoText.text = locationInfoString;
             }
-            
-            
-            infoView.InfoText.text = locationInfoString;
-            
             break;
         }
     }
@@ -382,7 +393,7 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
         NSNumber *locationIndexNumber = [[NSNumber alloc]initWithInt:locationIndex];
         
         
-        if ([belongToArrayToCheck containsObject:locationIndexNumber]) {
+        if ([belongToArrayToCheck containsObject:locationIndexNumber]&&(poi->shakedOrNot==shakeOrNot)) {
             [self addSubview:poi.view];//add specific subview according to the location
         }
 	}
@@ -502,6 +513,13 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
     return image;
 }
 
+#pragma mark - setShakeOrNot
+
+- (void)setShakeOrNot:(BOOL)yesOrNot
+{
+    shakeOrNot = yesOrNot;
+    [self updatePOIsCoordinates];
+}
 
 #pragma mark -
 #pragma mark Math utilities definition
