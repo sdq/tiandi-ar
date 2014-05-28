@@ -454,7 +454,7 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
 {
     pitch = motionManager.deviceMotion.attitude.pitch;
     roll = motionManager.deviceMotion.attitude.roll;
-    NSLog(@"pitch:%f,roll:%f",pitch,roll);
+    //NSLog(@"pitch:%f,roll:%f",pitch,roll);
     if ((pitch<0.3)&&(pitch>-0.3)&&(roll<0.3)&&(roll>-0.3)) {
         mapView.hidden = NO;
         infoView.hidden = YES;

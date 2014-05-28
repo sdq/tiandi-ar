@@ -42,6 +42,9 @@ typedef NS_ENUM(NSInteger, myCameraMode)
     cameraMode = backCameraMode;
     takePhotoButton.hidden = YES;
     
+    //shake
+    [[UIApplication sharedApplication]setApplicationSupportsShakeToEdit:YES];
+    [self becomeFirstResponder];
     
     //load plist of coordinates
     NSBundle *bundle = [NSBundle mainBundle];
@@ -149,6 +152,25 @@ typedef NS_ENUM(NSInteger, myCameraMode)
 
 - (IBAction)takePhoto:(UIButton *)sender {
     UIImageWriteToSavedPhotosAlbum([arview takeScreenshot], nil, nil,nil);
+}
+
+#pragma mark -
+#pragma mark shake
+- (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event
+{
+    NSLog(@"begin shake");
+}
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
+{
+    NSLog(@"stop");
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"shake" message:@"why?" delegate:self cancelButtonTitle:@"fuck" otherButtonTitles:@"shit", nil];
+    [alertView show];
+}
+
+- (void)motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event
+{
+    NSLog(@"cancel");
 }
 
 @end
