@@ -24,6 +24,8 @@
 - (void)startFrontCameraMode;
 - (void)stopFrontCameraMode;
 
+- (UIImage *)takeScreenshot;
+
 - (void)setPOIs:(NSArray *)pois;
 
 @end

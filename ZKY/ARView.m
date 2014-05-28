@@ -490,6 +490,18 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
     
 }
 
+#pragma mark - take screenshot
+
+- (UIImage *)takeScreenshot
+{
+    UIGraphicsBeginImageContextWithOptions(self.bounds.size, YES, 0);
+    [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:YES];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
 
 #pragma mark -
 #pragma mark Math utilities definition
