@@ -525,7 +525,28 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
 {
     pitch = motionManager.deviceMotion.attitude.pitch;
     roll = motionManager.deviceMotion.attitude.roll;
-    //NSLog(@"pitch:%f,roll:%f",pitch,roll);
+    
+    //利用自带参数判断手机姿态，得出需要旋转的角度
+    CGFloat rotationDegrees;
+    UIDeviceOrientation curDeviceOrientation = [[UIDevice currentDevice] orientation];
+    switch (curDeviceOrientation) {
+		case UIDeviceOrientationPortrait:
+			rotationDegrees = 0;
+			break;
+		case UIDeviceOrientationPortraitUpsideDown:
+			rotationDegrees = M_PI;
+			break;
+		case UIDeviceOrientationLandscapeLeft:
+			rotationDegrees = M_PI_2;
+			break;
+		case UIDeviceOrientationLandscapeRight:
+			rotationDegrees = -M_PI_2;
+			break;
+		default:
+			break; // leave the layer in its last known orientation
+	}
+    
+    
     if ((pitch<0.3)&&(pitch>-0.3)&&(roll<0.3)&&(roll>-0.3)) {
         mapView.hidden = NO;
         infoView.hidden = YES;
@@ -556,6 +577,11 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
         } else {
             poi.view.hidden = YES;
         }
+        
+        //转换旋转坐标系
+        CGAffineTransform t = CGAffineTransformMakeRotation(rotationDegrees);
+        poi.view.transform = t;
+        
 		i++;
 	}
     
