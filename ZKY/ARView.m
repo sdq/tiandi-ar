@@ -546,7 +546,6 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
 			break; // leave the layer in its last known orientation
 	}
     
-    
     if ((pitch<0.3)&&(pitch>-0.3)&&(roll<0.3)&&(roll>-0.3)) {
         mapView.hidden = NO;
         infoView.hidden = YES;
