@@ -17,6 +17,9 @@
 
 
 @interface ARView : UIView < CLLocationManagerDelegate >
+{
+    AVCaptureStillImageOutput *stillImageOutput;
+}
 
 - (void)initialize;
 - (void)start;

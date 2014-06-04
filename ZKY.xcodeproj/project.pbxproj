@@ -53,6 +53,11 @@
 		65FC7A721893416E003B718C /* toilet.png in Resources */ = {isa = PBXBuildFile; fileRef = 65FC7A711893416E003B718C /* toilet.png */; };
 		65FC7A7418934172003B718C /* rest.png in Resources */ = {isa = PBXBuildFile; fileRef = 65FC7A7318934172003B718C /* rest.png */; };
 		65FC7A7618934177003B718C /* exit.png in Resources */ = {isa = PBXBuildFile; fileRef = 65FC7A7518934177003B718C /* exit.png */; };
+		C8292DB1193EBC5D003C37F3 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8292DB0193EBC5D003C37F3 /* ImageIO.framework */; };
+		C8292DB3193EBC6B003C37F3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8292DB2193EBC6B003C37F3 /* QuartzCore.framework */; };
+		C8292DB5193EBC7A003C37F3 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8292DB4193EBC7A003C37F3 /* CoreMedia.framework */; };
+		C8292DB7193EBC90003C37F3 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8292DB6193EBC90003C37F3 /* CoreImage.framework */; };
+		C8292DB9193EBC9F003C37F3 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8292DB8193EBC9F003C37F3 /* CoreVideo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +130,11 @@
 		65FC7A711893416E003B718C /* toilet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toilet.png; sourceTree = "<group>"; };
 		65FC7A7318934172003B718C /* rest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rest.png; sourceTree = "<group>"; };
 		65FC7A7518934177003B718C /* exit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = exit.png; sourceTree = "<group>"; };
+		C8292DB0193EBC5D003C37F3 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		C8292DB2193EBC6B003C37F3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C8292DB4193EBC7A003C37F3 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		C8292DB6193EBC90003C37F3 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		C8292DB8193EBC9F003C37F3 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +142,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8292DB9193EBC9F003C37F3 /* CoreVideo.framework in Frameworks */,
+				C8292DB7193EBC90003C37F3 /* CoreImage.framework in Frameworks */,
+				C8292DB5193EBC7A003C37F3 /* CoreMedia.framework in Frameworks */,
+				C8292DB3193EBC6B003C37F3 /* QuartzCore.framework in Frameworks */,
+				C8292DB1193EBC5D003C37F3 /* ImageIO.framework in Frameworks */,
 				32BA8D271915E76F007881E0 /* MediaPlayer.framework in Frameworks */,
 				6509613E188A1F9B0076EB83 /* CoreMotion.framework in Frameworks */,
 				6509613C188A1F8F0076EB83 /* CoreLocation.framework in Frameworks */,
@@ -203,6 +218,11 @@
 		650960FE188A184C0076EB83 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C8292DB8193EBC9F003C37F3 /* CoreVideo.framework */,
+				C8292DB6193EBC90003C37F3 /* CoreImage.framework */,
+				C8292DB4193EBC7A003C37F3 /* CoreMedia.framework */,
+				C8292DB2193EBC6B003C37F3 /* QuartzCore.framework */,
+				C8292DB0193EBC5D003C37F3 /* ImageIO.framework */,
 				32BA8D261915E76F007881E0 /* MediaPlayer.framework */,
 				6509613D188A1F9B0076EB83 /* CoreMotion.framework */,
 				6509613B188A1F8F0076EB83 /* CoreLocation.framework */,
