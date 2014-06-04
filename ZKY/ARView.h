@@ -27,7 +27,7 @@
 - (void)startFrontCameraMode;
 - (void)stopFrontCameraMode;
 
-- (UIImage *)takeScreenshot;
+- (void)takeScreenshot;
 
 - (void)setShakeOrNot:(BOOL)yesOrNot;
 

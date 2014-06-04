@@ -598,8 +598,8 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
 }
 
 #pragma mark - take screenshot
-
-- (UIImage *)takeScreenshot
+//从摄像头读取图像
+- (void)takeScreenshot
 {
     AVCaptureConnection *videoConnection = nil;
     for (AVCaptureConnection *connection in stillImageOutput.connections) {
@@ -615,19 +615,25 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
     }
     
     [stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler:^(CMSampleBufferRef imageSampleBuffer, NSError *error){
-//        CFDictionaryRef exifAttachments = CMGetAttachment(imageSampleBuffer, kCGImagePropertyExifDictionary,NULL);
-//        if (exifAttachments) {
-//            
-//        }
-//        else
-//            NSLog(@"No attachments");
         
         NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
         UIImage *image = [[UIImage alloc]initWithData:imageData];
-        captureImage = image;
+        [self writeUIImageIntoCameraRoll:image];
     }];
+}
+
+//添加自定义图片至指定图片之上
+-(void)writeUIImageIntoCameraRoll:(UIImage *)image
+{
+    UIImage *forwardImage = [UIImage imageNamed:@"position.png"];
+    CGSize size=CGSizeMake(image.size.width, image.size.height);
+    UIGraphicsBeginImageContext(size);
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    [forwardImage drawInRect:CGRectMake(0,0,forwardImage.size.width,forwardImage.size.height)];
+    UIImage *finalImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
     
-    return captureImage;
+    UIImageWriteToSavedPhotosAlbum(finalImage,nil,nil,nil);
 }
 
 #pragma mark - setShakeOrNot
