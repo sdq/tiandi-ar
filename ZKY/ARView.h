@@ -17,6 +17,9 @@
 
 
 @interface ARView : UIView < CLLocationManagerDelegate >
+{
+    AVCaptureStillImageOutput *stillImageOutput;
+}
 
 - (void)initialize;
 - (void)start;
@@ -24,7 +27,7 @@
 - (void)startFrontCameraMode;
 - (void)stopFrontCameraMode;
 
-- (UIImage *)takeScreenshot;
+- (void)takeScreenshot;
 
 - (void)setShakeOrNot:(BOOL)yesOrNot;
 

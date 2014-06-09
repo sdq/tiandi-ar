@@ -159,7 +159,7 @@ typedef NS_ENUM(NSInteger, myCameraMode)
 #pragma mark - take photo
 
 - (IBAction)takePhoto:(UIButton *)sender {
-    UIImageWriteToSavedPhotosAlbum([arview takeScreenshot], nil, nil,nil);
+    [arview takeScreenshot];
 }
 
 #pragma mark -

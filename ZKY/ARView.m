@@ -82,6 +82,9 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
     
     InfoView *infoView;
     MapView *mapView;
+    
+    //capture image
+    UIImage *captureImage;
 }
 @end
 
@@ -224,8 +227,16 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
 	}
 	
 	captureSession = [[AVCaptureSession alloc] init];
+    captureSession.sessionPreset = AVCaptureSessionPresetMedium;
+
 	AVCaptureDeviceInput *newVideoInput = [[AVCaptureDeviceInput alloc] initWithDevice:camera error:nil];
 	[captureSession addInput:newVideoInput];
+    
+    stillImageOutput = [[AVCaptureStillImageOutput alloc]init];
+    NSDictionary *outputSettings = [[NSDictionary alloc]initWithObjectsAndKeys:AVVideoCodecJPEG,AVVideoCodecKey, nil];
+    [stillImageOutput setOutputSettings:outputSettings];
+    [captureSession addOutput:stillImageOutput];
+
 	
 	captureLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:captureSession];
 	captureLayer.frame = captureView.bounds;
@@ -587,15 +598,42 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
 }
 
 #pragma mark - take screenshot
-
-- (UIImage *)takeScreenshot
+//从摄像头读取图像
+- (void)takeScreenshot
 {
-    UIGraphicsBeginImageContextWithOptions(self.bounds.size, YES, 0);
-    [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:YES];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    AVCaptureConnection *videoConnection = nil;
+    for (AVCaptureConnection *connection in stillImageOutput.connections) {
+        for (AVCaptureInputPort *port in [connection inputPorts]) {
+            if ([[port mediaType]isEqual:AVMediaTypeVideo]) {
+                videoConnection = connection;
+                break;
+            }
+        }
+        if (videoConnection) {
+            break;
+        }
+    }
+    
+    [stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler:^(CMSampleBufferRef imageSampleBuffer, NSError *error){
+        
+        NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
+        UIImage *image = [[UIImage alloc]initWithData:imageData];
+        [self writeUIImageIntoCameraRoll:image];
+    }];
+}
+
+//添加自定义图片至指定图片之上
+-(void)writeUIImageIntoCameraRoll:(UIImage *)image
+{
+    UIImage *forwardImage = [UIImage imageNamed:@"position.png"];
+    CGSize size=CGSizeMake(image.size.width, image.size.height);
+    UIGraphicsBeginImageContext(size);
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    [forwardImage drawInRect:CGRectMake(0,0,forwardImage.size.width,forwardImage.size.height)];
+    UIImage *finalImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    return image;
+    UIImageWriteToSavedPhotosAlbum(finalImage,nil,nil,nil);
 }
 
 #pragma mark - setShakeOrNot
