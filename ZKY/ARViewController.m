@@ -97,9 +97,9 @@ typedef NS_ENUM(NSInteger, myCameraMode)
     /**
      * GIF
      **/
-    CGRect frame = CGRectMake(0,0,140,140);
-    frame.size = [UIImage imageNamed:@"test.gif"].size;
-    GIFview *gifview = [[GIFview alloc] initWithFrame:frame withGifName:@"test"];
+    CGRect frame = CGRectMake(0,0,70,70);
+    frame.size = [UIImage imageNamed:@"xingxing1.gif"].size;
+    GIFview *gifview = [[GIFview alloc] initWithFrame:frame withGifName:@"xingxing1"];
     CGPoint gifPoint = {40,841};
     
     NSArray *gifBelongtoArray = [NSArray arrayWithObjects: [NSNumber numberWithInt:4], nil];
@@ -107,8 +107,8 @@ typedef NS_ENUM(NSInteger, myCameraMode)
     [POIs insertObject:gif1 atIndex:numPois];
     
     
-    frame.size = [UIImage imageNamed:@"flower.gif"].size;
-    GIFview *gifview2 = [[GIFview alloc] initWithFrame:frame withGifName:@"flower"];
+    frame.size = [UIImage imageNamed:@"xingxing2.gif"].size;
+    GIFview *gifview2 = [[GIFview alloc] initWithFrame:frame withGifName:@"xingxing2"];
     
     POI *gif2 = [POI POIWithView:gifview2 at:gifPoint belongtoArray:gifBelongtoArray shakedOrNot:YES];
     [POIs insertObject:gif2 atIndex:numPois+1];
