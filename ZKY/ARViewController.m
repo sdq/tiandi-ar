@@ -97,22 +97,41 @@ typedef NS_ENUM(NSInteger, myCameraMode)
     /**
      * GIF
      **/
+    
+    /**first point**/
     CGRect frame = CGRectMake(0,0,70,70);
     frame.size = [UIImage imageNamed:@"xingxing1.gif"].size;
-    GIFview *gifview = [[GIFview alloc] initWithFrame:frame withGifName:@"xingxing1"];
-    CGPoint gifPoint = {40,841};
+    GIFview *gifview1_1 = [[GIFview alloc] initWithFrame:frame withGifName:@"xingxing1"];
+    CGPoint gifPoint1 = {474,380};
     
-    NSArray *gifBelongtoArray = [NSArray arrayWithObjects: [NSNumber numberWithInt:4], nil];
-    POI *gif1 = [POI POIWithView:gifview at:gifPoint belongtoArray:gifBelongtoArray shakedOrNot:NO];
-    [POIs insertObject:gif1 atIndex:numPois];
+    NSArray *gifBelongtoArray1 = [NSArray arrayWithObjects: [NSNumber numberWithInt:1], nil];
+    POI *gif1_1 = [POI POIWithView:gifview1_1 at:gifPoint1 belongtoArray:gifBelongtoArray1 shakedOrNot:NO];
+    [POIs insertObject:gif1_1 atIndex:numPois];
     
     
     frame.size = [UIImage imageNamed:@"xingxing2.gif"].size;
-    GIFview *gifview2 = [[GIFview alloc] initWithFrame:frame withGifName:@"xingxing2"];
+    GIFview *gifview1_2 = [[GIFview alloc] initWithFrame:frame withGifName:@"xingxing2"];
     
-    POI *gif2 = [POI POIWithView:gifview2 at:gifPoint belongtoArray:gifBelongtoArray shakedOrNot:YES];
-    [POIs insertObject:gif2 atIndex:numPois+1];
+    POI *gif1_2 = [POI POIWithView:gifview1_2 at:gifPoint1 belongtoArray:gifBelongtoArray1 shakedOrNot:YES];
+    [POIs insertObject:gif1_2 atIndex:numPois+1];
     
+    /**second point**/
+    frame.size = [UIImage imageNamed:@"cook.gif"].size;
+    GIFview *gifview2_1 = [[GIFview alloc] initWithFrame:frame withGifName:@"cook"];
+    CGPoint gifPoint2 = {82,275};
+    
+    NSArray *gifBelongtoArray2 = [NSArray arrayWithObjects: [NSNumber numberWithInt:2], nil];
+    POI *gif2_1 = [POI POIWithView:gifview2_1 at:gifPoint2 belongtoArray:gifBelongtoArray2 shakedOrNot:NO];
+    [POIs insertObject:gif2_1 atIndex:numPois];
+    
+    /**third point**/
+    frame.size = [UIImage imageNamed:@"tree.gif"].size;
+    GIFview *gifview3_1 = [[GIFview alloc] initWithFrame:frame withGifName:@"tree"];
+    CGPoint gifPoint3 = {176,1076};
+    
+    NSArray *gifBelongtoArray3 = [NSArray arrayWithObjects: [NSNumber numberWithInt:3], nil];
+    POI *gif3_1 = [POI POIWithView:gifview3_1 at:gifPoint3 belongtoArray:gifBelongtoArray3 shakedOrNot:NO];
+    [POIs insertObject:gif3_1 atIndex:numPois];
     
     //set POIs
 	[arview setPOIs:POIs];
@@ -126,6 +145,7 @@ typedef NS_ENUM(NSInteger, myCameraMode)
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    
 }
 
 

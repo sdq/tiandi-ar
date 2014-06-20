@@ -5,30 +5,30 @@
 	<key>0</key>
 	<dict>
 		<key>x</key>
-		<integer>350</integer>
+		<integer>353</integer>
 		<key>y</key>
-		<integer>95</integer>
+		<integer>135</integer>
 	</dict>
 	<key>1</key>
 	<dict>
 		<key>x</key>
-		<integer>510</integer>
+		<integer>561</integer>
 		<key>y</key>
-		<integer>95</integer>
+		<integer>265</integer>
 	</dict>
 	<key>2</key>
 	<dict>
 		<key>x</key>
-		<integer>563</integer>
+		<integer>193</integer>
 		<key>y</key>
-		<integer>180</integer>
+		<integer>407</integer>
 	</dict>
 	<key>3</key>
 	<dict>
 		<key>x</key>
-		<integer>625</integer>
+		<integer>342</integer>
 		<key>y</key>
-		<integer>454</integer>
+		<integer>1093</integer>
 	</dict>
 	<key>4</key>
 	<dict>

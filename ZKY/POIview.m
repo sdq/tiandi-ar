@@ -19,14 +19,14 @@
     if (self) {
         // Initialization code
         
-        CGRect imageViewRect = CGRectMake(0, 0, 140, 50);
+        CGRect imageViewRect = CGRectMake(0, 0, 280, 100);
         POIback = [[UIImageView alloc] initWithFrame:imageViewRect];
         [self addSubview:POIback];
         
-        CGRect labelRect = CGRectMake(45, 0, 80, 20);
+        CGRect labelRect = CGRectMake(90, 0, 160, 80);
         POItitle = [[UILabel alloc] initWithFrame:labelRect];
         POItitle.textColor = [UIColor whiteColor];
-        [POItitle setFont:[UIFont fontWithName:@"Helvetica" size:12]];
+        [POItitle setFont:[UIFont fontWithName:@"Helvetica" size:24]];
         POItitle.lineBreakMode = UILineBreakModeWordWrap;
         POItitle.numberOfLines = 0;
         [self addSubview:POItitle];

@@ -134,7 +134,7 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
     offset = 7*M_PI/5;//set offset
     myBackMusic = [[AVAudioPlayer alloc] init];
     
-    //for demo
+    //initial position
     NSBundle *bundle = [NSBundle mainBundle];
     NSURL *plistURL = [bundle URLForResource:@"coordinates" withExtension:@"plist"];
     NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfURL:plistURL];
@@ -146,28 +146,12 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
     }
     coodinateData = [tmpDataArray copy];
     
-    locationIndex = 4;
+    locationIndex = 0;
     location.x = [[[coodinateData objectAtIndex:locationIndex] objectForKey:@"x"] floatValue];
     location.y = [[[coodinateData objectAtIndex:locationIndex] objectForKey:@"y"] floatValue];
     [self drawThePosition:location onMap:@"map.jpg"];
     [self updatePOIsCoordinates];
-    
-    //play the background music
-    NSString *musicFilePath = [[NSBundle mainBundle] pathForResource:@"night29" ofType:@"mp3"];       //创建音乐文件路径
-    NSURL *musicURL = [[NSURL alloc] initFileURLWithPath:musicFilePath];
-    
-    AVAudioPlayer *thePlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:musicURL error:nil];
-    
-    myBackMusic = thePlayer;    //赋值给自己定义的类变量
-    
-    [myBackMusic prepareToPlay];
-    [myBackMusic setVolume:1];   //设置音量大小
-    myBackMusic.numberOfLoops = -1;//设置音乐播放次数  -1为一直循环
-    [myBackMusic play];   //播放
-    
-    thePlayer = Nil;
-    musicFilePath = nil;
-    musicURL = nil;
+
 }
 
 - (void)start
@@ -297,7 +281,7 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
         return;
     NSUUID *proximityUUID = [[NSUUID alloc] initWithUUIDString:kUUID];
     //    self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID identifier:@"TongjiIdentifier"];
-    beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID identifier:@"TongjiIdentifier"];
+    beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID major:2 identifier:@"TongjiIdentifier"];
 }
 
 -(void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region {
@@ -319,26 +303,32 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
                 
                 NSString *locationInfoString;
                 switch (locationIndex) {
-                    case 4:
+                    case 1:
                     {
-                        locationInfoString = @"您所在的位置：大厅";
+                        locationInfoString = @"中芬中心入口处";
                         
                         //play the background music
-                        NSString *musicFilePath = [[NSBundle mainBundle] pathForResource:@"night29" ofType:@"mp3"];       //创建音乐文件路径
-                        NSURL *musicURL = [[NSURL alloc] initFileURLWithPath:musicFilePath];
+                        [self playBackgroundMusicWithName:@"gate1"];
                         
-                        AVAudioPlayer *thePlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:musicURL error:nil];
+                    }
+                        break;
                         
-                        myBackMusic = thePlayer;    //赋值给自己定义的类变量
+                    case 2:
+                    {
+                        locationInfoString = @"餐厅与厨房";
                         
-                        [myBackMusic prepareToPlay];
-                        [myBackMusic setVolume:1];   //设置音量大小
-                        myBackMusic.numberOfLoops = -1;//设置音乐播放次数  -1为一直循环
-                        [myBackMusic play];   //播放
+                        //play the background music
+                        [self playBackgroundMusicWithName:@"kitchen"];
                         
-                        thePlayer = Nil;
-                        musicFilePath = nil;
-                        musicURL = nil;
+                    }
+                        break;
+                        
+                    case 3:
+                    {
+                        locationInfoString = @"同济天地";
+                        
+                        //play the background music
+                        [self playBackgroundMusicWithName:@"tiandi"];
                         
                     }
                         break;
@@ -354,6 +344,25 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
             break;
         }
     }
+}
+
+- (void)playBackgroundMusicWithName:(NSString *)musicName
+{
+    NSString *musicFilePath = [[NSBundle mainBundle] pathForResource:musicName ofType:@"mp3"];       //创建音乐文件路径
+    NSURL *musicURL = [[NSURL alloc] initFileURLWithPath:musicFilePath];
+    
+    AVAudioPlayer *thePlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:musicURL error:nil];
+    
+    myBackMusic = thePlayer;    //赋值给自己定义的类变量
+    
+    [myBackMusic prepareToPlay];
+    [myBackMusic setVolume:1];   //设置音量大小
+    myBackMusic.numberOfLoops = -1;//设置音乐播放次数  -1为一直循环
+    [myBackMusic play];   //播放
+    
+    thePlayer = Nil;
+    musicFilePath = nil;
+    musicURL = nil;
 }
 
 #pragma mark - draw the map and position
@@ -452,21 +461,13 @@ void xyToNEU(double x0, double y0,  double x1, double y1, double orientation, do
     
     if (shakeOrNot) {
         //play the background music
-        NSString *musicFilePath = [[NSBundle mainBundle] pathForResource:@"night5" ofType:@"mp3"];       //创建音乐文件路径
-        NSURL *musicURL = [[NSURL alloc] initFileURLWithPath:musicFilePath];
+        switch(locationIndex){
+            case 1:
+            {
+                [self playBackgroundMusicWithName:@"gate2"];
+            }
+        }
         
-        AVAudioPlayer *thePlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:musicURL error:nil];
-        
-        myBackMusic = thePlayer;    //赋值给自己定义的类变量
-        
-        [myBackMusic prepareToPlay];
-        [myBackMusic setVolume:1];   //设置音量大小
-        myBackMusic.numberOfLoops = -1;//设置音乐播放次数  -1为一直循环
-        [myBackMusic play];   //播放
-        
-        thePlayer = Nil;
-        musicFilePath = nil;
-        musicURL = nil;
     }
 }
 
