@@ -127,7 +127,7 @@ typedef NS_ENUM(NSInteger, myCameraMode)
     /**third point**/
     frame.size = [UIImage imageNamed:@"tree.gif"].size;
     GIFview *gifview3_1 = [[GIFview alloc] initWithFrame:frame withGifName:@"tree"];
-    CGPoint gifPoint3 = {176,1076};
+    CGPoint gifPoint3 = {420,1076};
     
     NSArray *gifBelongtoArray3 = [NSArray arrayWithObjects: [NSNumber numberWithInt:3], nil];
     POI *gif3_1 = [POI POIWithView:gifview3_1 at:gifPoint3 belongtoArray:gifBelongtoArray3 shakedOrNot:NO];
